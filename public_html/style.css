@@ -1,0 +1,77 @@
+
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans&display=swap');
+
+body {
+    background: aquamarine;
+    color: activeborder; 
+    font-family: 'Poiret One', sans-serif;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: midnightblue;
+    font-size: 3rem;
+    color: #fff;
+    height: 100%;
+    width: 100%;
+    border-radius: 4px;
+    transition: all 500ms;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+ }
+.basic-grid {
+    display: grid;
+    gap: 0.2rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+ }
+.wi-75{
+    width:85%;
+}
+div.container-fluid div.basic-grid input{
+    background-color: midnightblue;
+    color: #fff;
+    font-family:'Quantico';
+}
+div.container div.basic-grid datalist{
+    background-color: midnightblue;
+}
+div.container-fluid div.basic-grid .btn{
+    background-color: lime;
+    color: midnightblue;
+    font-family:'Quantico';
+    font-size:1.5rem;
+}
+h1.display-4{
+    color: midnightblue;
+}
+h2{
+    color: darkgreen;
+}
+div.container-fluid div.basic-grid .btn:hover{
+    color: aqua;
+}
+#chart-container{
+    min-height:600px;
+}
+#cards p{
+    font-family:'Quantico';
+    font-size: 1.7rem;
+}
+#cards h5{
+    font-size: 3.25rem;
+}
+#cards small{
+    font-size: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+    .wi-75{
+        width:100%;
+    }
+}
+
