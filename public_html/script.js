@@ -191,6 +191,30 @@ const createCard = (country, latestConf, latestReco, latestDead)=>{
     <p class="text-success"> Recovered : ${latestReco}</p>
     <p class="text-danger"> Deaths : ${latestDead}</p>`)
 }
+async function store() {
+    const covidData = await getData();
+    const database = firebase.database();
+    for (var i= 0 ; i < covidData.countryList.length; i++) {
+        database.ref('/country/'+covidData.countryList[i]).set({
+            confirmed : covidData.latestConf[i],
+            deaths:  covidData.latestDead[i],
+            recovered : covidData.latestReco[i],
+        });
+    }
+}
+
+$(document).ready(function () {
+    var nowDate = new Date();
+    var secondes = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 14, 24, 0, 0) - nowDate;
+    if (secondes < 0) {
+         secondes += 86400000;
+}
+    setTimeout(function(){
+        const database = firebase.database();
+        store();
+        alert("correct");
+    }, secondes);
+});
 
 const formatDate = (dateInWrongFormat)=>
 {   

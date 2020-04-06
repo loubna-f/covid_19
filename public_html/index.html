@@ -30,10 +30,12 @@
                 <button type="submit" class="btn btn-dark mx-auto wi-75">Valider</button><br>
                 <button class="btn btn-dark mx-auto wi-75 " id="add">Ajouter plus de pays</button><br>
                 <select class="btn btn-dark mx-auto wi-75 " id="type">
-                    <option value="Confirmed">Confirmees</option>
-                    <option value="Recovered">Retablies</option>
-                    <option value="Deceased">Decedes</option>
+                    <option value="Confirmed" name="confirm" id="confirm">Confirmees</option>
+                    <option value="Recovered" name="reta" id="reta">Retablies</option>
+                    <option value="Deceased" name="dece" id="dace">Decedes</option>
                 </select>
+                
+                
 
             </div>
             </form>
@@ -46,9 +48,35 @@
             </div>
             
         </div>
+        
+<script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-analytics.js"></script>
+
+<script>
+  var firebaseConfig = {
+    apiKey: "AIzaSyBC3CMhKDB5bw_JEGXWATtVbDDnnHaivD0",
+    authDomain: "covid19-b881a.firebaseapp.com",
+    databaseURL: "https://covid19-b881a.firebaseio.com",
+    projectId: "covid19-b881a",
+    storageBucket: "covid19-b881a.appspot.com",
+    messagingSenderId: "754171109928",
+    appId: "1:754171109928:web:fd77f372e82acbb4464b1d",
+    measurementId: "G-7SBYD7Y73Y"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+
+</script>
+<script src="index.js"></script>
+
+
+
     </body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     <script src="./script.js"></script>
+    
 </html>
