@@ -10,7 +10,7 @@ window.addEventListener('load',()=>{
     addBtn.addEventListener('click',(event)=>{
         event.preventDefault()
         j++
-        if(j<=5)
+        if(j<=188)
         addCountry(j)
         else alert("Désolé , on peut pas visualiser plus que 5 pays ")
     })
@@ -226,6 +226,106 @@ const formatDate = (dateInWrongFormat)=>
     let year = dateInWrongFormat.substr(0,4)
     return new Date(year, month-1, day)
 }
+var tab = Array();
+
+function sum(tab) {
+    var s = 0;
+    for (k = 0; k < tab.length; k++) {
+        s = s + tab[k];
+    }
+    return s;
+};
+
+var html = "";
+var html1 = "";
+var html2 = "";
+var pays = Array();
+var day = Array();
+var conf = Array();
+var death = Array();
+var recov = Array();
+
+fetch('https://pomber.github.io/covid19/timeseries.json')
+    .then(dataWrappedByPromise => dataWrappedByPromise.json())
+    .then(data => {
+        var cas = Object.values(data)[0];
+        pays.push(Object.getOwnPropertyNames(data));
+        html += "<option>countries and territoires:</option>";
+
+        for (i = 0; i < pays[0].length; i++) {
+            html += "<option value=" + i + ">" + pays[0][i] + "</option>";
+            day.push(Object.values(data)[i][cas.length - 1].date);
+            conf.push(Object.values(data)[i][cas.length - 1].confirmed);
+            death.push(Object.values(data)[i][cas.length - 1].deaths);
+            recov.push(Object.values(data)[i][cas.length - 1].recovered);
+
+            html2 += "<tr>";
+            html2 += "<td>" + pays[0][i] + "</td>";
+            html2 += "<td>" + Object.values(data)[i][cas.length - 1].confirmed + "</td>";
+            html2 += "<td>" + Object.values(data)[i][cas.length - 1].deaths + "</td>";
+            html2 += "<td>" + Object.values(data)[i][cas.length - 1].recovered + "</td>";
+            html2 += "</tr>";
+
+            var d = Array();
+            var c = Array();
+            var dea = Array();
+            var r = Array();
+            for (j = 0; j < cas.length; j++) {
+                d.push(Object.values(data)[i][j].date);
+                c.push(Object.values(data)[i][j].confirmed);
+                dea.push(Object.values(data)[i][j].deaths);
+                r.push(Object.values(data)[i][j].recovered);
+            }
+            
+        }
+         function tri(tab) {
+            var changed;
+            do {
+                changed = false;
+                for (var i = 0; i < tab.length - 1; i++) {
+                    if (tab[i + 1] > tab[i]) {
+                        var tmp = tab[i + 1];
+                        tab[i + 1] = tab[i];
+                        tab[i] = tmp;
+                        var p = pays[0][i + 1];
+                        pays[0][i + 1] = pays[0][i];
+                        pays[0][i] = p;
+                        changed = true;
+                    }
+                }
+            } while (changed);
+            return tab;
+        }
+        
+        var database = firebase.database();
+        var ref2 = database.ref(day[pays[0].length - 1]);
+
+        for (h = 0; h < pays[0].length; h++) {
+            var ref = ref2.child(pays[0][h]);
+            var data = {
+
+                confirmed: conf[h],
+                deaths: death[h],
+                recovered: recov[h],
+            }
+            
+            ref.set(data);
+        }
+      
+
+        html1 += "From :" + cas[0].date + "  to  " + cas[cas.length - 1].date;
+        $('#op').html(html);
+        $('#mytable').html(html2);
+        $('#date').html(html1);
+        $('#ca').html(sum(conf));
+        $('#dea').html(sum(death));
+        $('#rec').html(sum(recov));
+
+
+       
+
+    });
+
 
 
 
